@@ -49,10 +49,10 @@ public abstract class AbstractPlayer {
 
     public void tagBlackJack() {
 
-        if (((cards.get(0).getScore() == 1) && ((cards.get(1).getScore() == 10) && cards.get(1).getCardName() != "10")) || ((cards.get(1).getScore() == 1) && ((cards.get(0).getScore() == 10) && cards.get(0).getCardName() != "10")))
+        if (((cards.get(0).getScore() == 1) && ((cards.get(1).getScore() == 10) && !cards.get(1).getCardName().equals("10"))) || ((cards.get(1).getScore() == 1) && ((cards.get(0).getScore() == 10) && !cards.get(0).getCardName().equals("10")))){
             Log.d("Game winners", "tagBlackJack");
             this.status = Status.kBlackJack;
-
+        }
     }
 
     public void grabCard(Card card) {
@@ -80,6 +80,10 @@ public abstract class AbstractPlayer {
 
     public Status getStatus() {
         return status;
+    }
+
+    public Operation getLastOperation() {
+        return operation;
     }
 
     public String getPlayerName() {

@@ -76,19 +76,18 @@ public class Game {
             if (playersOnTable.get(i).getStatus() == Status.kBlackJack) {
                 winners.add(playersOnTable.get(i));
                 Log.d("THisss", playersOnTable.get(i).getPlayerName());
-                Log.d("THissssss", winners.get(0).getPlayerName());
+                Log.d("THissssss", winners.get(0).getPlayerName() + " XXX" + playersOnTable.get(i).getStatus());
             }
         }
         if (winners.size() == 0)
             if (playersOnTable.get(playersOnTable.size() - 1).getStatus() == Status.kBlackJack) {
                 winners.add(playersOnTable.get(playersOnTable.size() - 1));
-                Log.d("THisssssssss", playersOnTable.get(playersOnTable.size() - 1).getPlayerName());
-                Log.d("THissssssssssss", winners.get(0).getPlayerName());
             }
         if (winners.size() > 0) {
             Log.d("THisssssssssssss", "This");
+            win();
 
-        } // else whileTheGame();
+        } else whileTheGame();
 
     }
 
@@ -100,7 +99,7 @@ public class Game {
             players_is_playing = false;
             for (int cnt = 0; cnt < (playersOnTable.size() - 1); cnt++) {
                 AbstractPlayer player = this.playersOnTable.get(cnt);
-                if (player.getStatus() == Status.kStay) {
+                if ((player.getStatus() == Status.kStay) && (player.getLastOperation() != Operation.kStop)) {
                     switch (player.play()) {
                         case kGrab:
                             player.grabCard(koloda.getRundomCard());
@@ -116,6 +115,10 @@ public class Game {
                 }
             }
         }
+        Log.d("Game winners", " players with Score = " + String.valueOf(WithScore.size()));
+        for (int i=0; i < WithScore.size(); i++){
+            Log.d("Game winners", " player with Score " + i + " " + WithScore.get(i).getPlayerName() + " score= " + WithScore.get(i).getScore());
+        }
 
         if (WithScore.size() == 0) {
             winners.add(playersOnTable.get(playersOnTable.size() - 1));
@@ -124,7 +127,7 @@ public class Game {
             while (diller_is_playing) {
                 diller_is_playing = false;
                 AbstractPlayer player = this.playersOnTable.get(playersOnTable.size() - 1);
-                if (player.getStatus() == Status.kStay) {
+                if ((player.getStatus() == Status.kStay) && (player.getLastOperation() != Operation.kStop)) {
                     switch (player.play()) {
                         case kGrab:
                             player.grabCard(koloda.getRundomCard());
